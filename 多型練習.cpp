@@ -61,7 +61,7 @@ Person* Student::Graduate(){
 Person* Person::whoAreYou(int option){
 	switch(option){
 		case 1:
-			return new Student();
+			return new Student(2);
 			break;
 		default:
 			return new Person();
@@ -73,7 +73,10 @@ Person* Person::whoAreYou(int option){
 
 int main(void){
 	Person someone(407530016,'B');
-	Person* studentA = someone.whoAreYou(1);
+	Student* studentA = (Student*)someone.whoAreYou(1);
+	cout<<studentA->Getgrade();
+	
+	
 
 //            測試B 
 //	Student realStudent;
@@ -90,9 +93,11 @@ int main(void){
 C++的class inheritance 預設是private,即base class 裡面的member到子類別的時候都會變成private因而無法使用,所以需要在繼承時,設定為public繼承
 class A:public B{...}
 
-另外,父類別無法接住子類別 ,但子類別可以接住父類別的return
+另外,父類別無法接住子類別 ,但子類別可以接住父類別的return(但只能有父類別的member且其必須是public繼承)
+然而,如果在子類別宣告時強制轉型態(見76行),則依舊可以編譯運行(在return new的地方會成功呼叫一次子類別的建構元) 
 
-*這段code是針對clean code的listing 3-5做的測試,測試證明書裡的程式的確設計有誤
+
+*這段code是針對clean code的listing 3-5做的測試
 *書中以return格式Employee的函數來switch,然後return各Employee的子類別(ex. return new HourlyEmployee(r);)
 */ 
 
